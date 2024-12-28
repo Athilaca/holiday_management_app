@@ -83,19 +83,13 @@ Build a full-stack Holiday Management Application that fetches holiday data from
 ## API Endpoints
 
 ### Fetch Holidays for a Specific Country and Year
-- **Endpoint:** `/api/holidays/`
+- **Endpoint:** `/api/holidays/?country=${country}&year=${year}`
 - **Method:** GET
 - **Parameters:**
   - `country`: The ISO 3166-1 alpha-2 code for the country (e.g., US, IN).
   - `year`: The year for which holidays are to be fetched.
 - **Response:** A list of holidays for the selected country and year.
 
-### Search Holidays by Name
-- **Endpoint:** `/api/holidays/search/`
-- **Method:** GET
-- **Parameters:**
-  - `name`: The name of the holiday (e.g., "Christmas").
-- **Response:** A list of holidays that match the search term.
 
 ---
 
@@ -115,6 +109,7 @@ Build a full-stack Holiday Management Application that fetches holiday data from
 3. View the list of holidays for the selected country and year.
 4. Search for holidays by name using the search bar.
 5. Click on a holiday to see detailed information in a modal.
+6. filter holidays by their type.
 
 ---
 

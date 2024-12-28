@@ -13,7 +13,7 @@ const HolidaysPage = () => {
   const [selectedHoliday, setSelectedHoliday] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedType, setSelectedType] = useState(''); // State for selected holiday type
-  const holidaysPerPage = 15;
+  const holidaysPerPage = 10;
 
   // Get unique holiday types for the dropdown
   const holidayTypes = [
@@ -98,17 +98,21 @@ const HolidaysPage = () => {
       {/* Holidays List */}
       <div className="flex">
         <div className="w-full p-2 sm:p-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-4">
+
             {currentHolidays.map((holiday) => (
               <div
                 key={holiday.id}
-                className="bg-white rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 cursor-pointer mx-2 sm:mx-4 my-2"
+                className="bg-white text-black rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-[0_4px_15px_0px_rgba(0,0,0,0.7)] hover:bg-gradient-to-t hover:from-black hover:to-transparent cursor-pointer mx-12 sm:mx-24 my-4"
                 onClick={() => setSelectedHoliday(holiday)}
               >
                 <div className="p-4">
-                  <h3 className="text-base sm:text-lg font-semibold text-gray-800">
-                    {holiday.name}
-                  </h3>
+                <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-2">
+                  {holiday.name}
+                </h3>
+                <div className="mt-auto text-sm text-gray-600">
+                  {holiday.date.iso}
+                </div>
                 </div>
               </div>
             ))}
