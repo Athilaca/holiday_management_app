@@ -4,7 +4,15 @@ import { getCountries, getHolidays } from '../functionalities/api/'; // Import t
 
 const HomePage = () => {
   const [countries, setCountries] = useState([]); // Initialize with an empty array
-  const [years, setYears] = useState([2024, 2025, 2026]); // Example years
+  const currentYear = new Date().getFullYear();
+  const allYears = Array.from(
+    { length: (currentYear + 20) - 1900 + 1 },
+    (_, index) => 1900 + index
+  );
+
+  // Set the years in state
+  const [years, setYears] = useState(allYears);
+
   const [selectedCountry, setSelectedCountry] = useState('');
   const [selectedYear, setSelectedYear] = useState('');
   const [countryError, setCountryError] = useState(''); // Error for country
