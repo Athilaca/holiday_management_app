@@ -59,7 +59,11 @@ const HomePage = () => {
 
     try {
       const holidays = await getHolidays(selectedCountry, selectedYear);
-      navigate('/holidays', { state: { holidays } });
+      if (holidays && holidays.length > 0) {
+        navigate('/holidays', { state: { holidays } });
+      } else {
+        alert("No holidays found for the selected country and year.");
+      }
     } catch (error) {
       console.error("Error fetching holidays:", error);
     }

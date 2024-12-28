@@ -105,12 +105,12 @@ Build a full-stack Holiday Management Application that fetches holiday data from
 1. Ensure the Django server is running on [http://127.0.0.1:8000/](http://127.0.0.1:8000/) by following the setup instructions above.
 
 ### Start the Frontend
-1. Ensure the React development server is running on [http://localhost:3000/](http://localhost:3000/) by following the setup instructions above.
+1. Ensure the React development server is running on [http://localhost:5173/](http://localhost:3000/) by following the setup instructions above.
 
 ---
 
 ## Usage
-1. Open the frontend in your browser ([http://localhost:3000/](http://localhost:3000/)).
+1. Open the frontend in your browser ([http://localhost:5173/](http://localhost:3000/)).
 2. Use the country and year dropdowns to select a country and year.
 3. View the list of holidays for the selected country and year.
 4. Search for holidays by name using the search bar.

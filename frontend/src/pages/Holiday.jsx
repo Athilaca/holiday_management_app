@@ -1,36 +1,53 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { FaSearch } from 'react-icons/fa'; // Importing the search icon
+import { FaSearch } from 'react-icons/fa';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const HolidaysPage = () => {
   const location = useLocation();
   const { holidays } = location.state || { holidays: [] };
 
-  // State variables for search, pagination, and modal
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedHoliday, setSelectedHoliday] = useState(null); // To store the selected holiday
+  const [selectedDate, setSelectedDate] = useState(null); // State for selected date
+  const [selectedHoliday, setSelectedHoliday] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedType, setSelectedType] = useState(''); // State for selected holiday type
   const holidaysPerPage = 15;
 
-  // Filter holidays based on search term
+  // Get unique holiday types for the dropdown
+  const holidayTypes = [
+    ...new Set(holidays.flatMap(holiday => holiday.type)),
+  ];
+
+  // Filter holidays based on search term, selected date, and selected type
   const filteredHolidays = holidays.filter((holiday) => {
-    return holiday.name.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSearch = holiday.name
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
+    const matchesDate = selectedDate
+      ? new Date(holiday.date.iso).toDateString() === selectedDate.toDateString()
+      : true;
+    const matchesType = selectedType
+      ? holiday.type.includes(selectedType)
+      : true;
+
+    return matchesSearch && matchesDate && matchesType;
   });
 
-  // Calculate pagination values
   const totalPages = Math.ceil(filteredHolidays.length / holidaysPerPage);
   const currentHolidays = filteredHolidays.slice(
     (currentPage - 1) * holidaysPerPage,
     currentPage * holidaysPerPage
   );
 
-  // Close the modal
   const closeModal = () => setSelectedHoliday(null);
 
   return (
     <div className="flex flex-col mx-4 mt-20">
-      {/* Search Bar */}
-      <div className="p-4 flex justify-center">
+      {/* Search, Date Picker, and Type Dropdown Section */}
+      <div className="p-4 flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
+        {/* Search Bar */}
         <div className="relative w-full sm:w-2/3 md:w-1/2">
           <input
             type="text"
@@ -38,11 +55,43 @@ const HolidaysPage = () => {
             value={searchTerm}
             onChange={(e) => {
               setSearchTerm(e.target.value);
-              setCurrentPage(1); // Reset to first page on search
+              setCurrentPage(1);
             }}
             className="w-full px-10 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-sm bg-gray-100 text-gray-800"
           />
           <FaSearch className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
+        </div>
+
+        {/* Date Picker */}
+        <div className="relative w-full sm:w-auto">
+          <DatePicker
+            selected={selectedDate}
+            onChange={(date) => {
+              setSelectedDate(date);
+              setCurrentPage(1);
+            }}
+            placeholderText="Select Date"
+            className="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-sm bg-gray-100 text-gray-800"
+          />
+        </div>
+
+        {/* Holiday Type Dropdown */}
+        <div className="relative w-full sm:w-auto">
+          <select
+            value={selectedType}
+            onChange={(e) => {
+              setSelectedType(e.target.value);
+              setCurrentPage(1);
+            }}
+            className="w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-sm bg-gray-100 text-gray-800"
+          >
+            <option value="">Select Type</option>
+            {holidayTypes.map((type) => (
+              <option key={type} value={type}>
+                {type}
+              </option>
+            ))}
+          </select>
         </div>
       </div>
 
@@ -54,15 +103,12 @@ const HolidaysPage = () => {
               <div
                 key={holiday.id}
                 className="bg-white rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 cursor-pointer mx-2 sm:mx-4 my-2"
-                onClick={() => setSelectedHoliday(holiday)} // Set the holiday for modal
+                onClick={() => setSelectedHoliday(holiday)}
               >
                 <div className="p-4">
                   <h3 className="text-base sm:text-lg font-semibold text-gray-800">
                     {holiday.name}
                   </h3>
-                  <p className="text-gray-500 text-sm">
-                    {new Date(holiday.date).toLocaleDateString()}
-                  </p>
                 </div>
               </div>
             ))}
@@ -109,10 +155,11 @@ const HolidaysPage = () => {
             </p>
             <button
               onClick={closeModal}
-              className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400"
+              className="px-4 py-2 bg-red-500 text-white-700 rounded-md hover:bg-red-500 hover: font-bold transition-all duration-200 ease-in-out"
             >
               Close
             </button>
+
           </div>
         </div>
       )}
@@ -121,6 +168,8 @@ const HolidaysPage = () => {
 };
 
 export default HolidaysPage;
+
+
 
 
 

@@ -27,9 +27,15 @@ export const getHolidays = async (country, year) => {
   try {
     const response = await axios.get(`http://127.0.0.1:8000/api/holidays/?country=${country}&year=${year}`);
     const holidays = response.data.response.holidays;
+    if (!holidays || holidays.length === 0) {
+      console.log("No holidays found");
+      return []; 
+    }
+    
+
     setCache(cacheKey, holidays); // Save in cache
     return holidays;
-    
+
   } catch (error) {
     console.error("Error fetching holidays:", error);
     return []; // Return an empty array in case of error
