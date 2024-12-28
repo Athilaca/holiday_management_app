@@ -18,44 +18,42 @@ Setup Instructions:
 Backend (Django):
 Clone the repository:
 
-bash
+
 git clone <repository_url>
 cd holiday-management-app/backend
 Set up a Python virtual environment (if not using virtualenv globally):
 
-bash
+
 python3 -m venv venv
 source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
 Install required dependencies:
 
-bash
 pip install -r requirements.txt
 Set up environment variables: Create a .env file in the backend directory with the following contents:
 
-bash
 CALENDARIFIC_API_KEY=<your_calendarific_api_key>
 Migrate the database:
 
-bash
+
 python manage.py migrate
 Run the Django server:
 
-bash
+
 python manage.py runserver
 The backend should now be running on http://127.0.0.1:8000/.
 
 Frontend (React):
 Navigate to the frontend directory:
 
-bash
+
 cd ../frontend
 Install the required packages:
 
-bash
+
 npm install
 Run the React development server:
 
-bash
+
 npm run dev
 The frontend should now be running on http://localhost:3000/.
 
