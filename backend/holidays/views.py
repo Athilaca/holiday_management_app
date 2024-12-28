@@ -1,11 +1,11 @@
 import requests
 from django.core.cache import cache
 from django.conf import settings
-from rest_framework.response import Response # type: ignore
-from rest_framework.views import APIView # type: ignore
-from rest_framework import status # type: ignore
+from rest_framework.response import Response 
+from rest_framework.views import APIView 
+from rest_framework import status 
 
-class HolidayAPIView(APIView):
+class Holiday(APIView):
     def get(self, request, *args, **kwargs):
         country = request.query_params.get('country')
         year = request.query_params.get('year')
@@ -32,12 +32,12 @@ class HolidayAPIView(APIView):
 
         if response.status_code == 200:
             data = response.json()
-            cache.set(cache_key, data,  timeout=3600)  # Cache for 24 hours
+            cache.set(cache_key, data,  timeout=86400) 
             return Response(data, status=status.HTTP_200_OK)
         else:
             return Response({"error": "Failed to fetch holidays."}, status=response.status_code)
 
-class SearchHolidayAPIView(APIView):
+class SearchHoliday(APIView):
     def get(self, request, *args, **kwargs):
         name = request.query_params.get('name')
         country = request.query_params.get('country')
@@ -57,7 +57,7 @@ class SearchHolidayAPIView(APIView):
 
         return Response(filtered_holidays, status=status.HTTP_200_OK)
 
-class CountryListAPIView(APIView):
+class CountryList(APIView):
     def get(self, request, *args, **kwargs):
 
 
@@ -74,5 +74,5 @@ class CountryListAPIView(APIView):
             
             return Response(data, status=status.HTTP_200_OK)
         else:
-            return Response({"error": "Failed to fetch holidays."}, status=response.status_code)
+            return Response({"error": "Failed to fetch countries."}, status=response.status_code)
         
