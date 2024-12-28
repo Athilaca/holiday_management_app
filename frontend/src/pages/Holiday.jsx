@@ -52,7 +52,7 @@ const HolidaysPage = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {currentHolidays.map((holiday) => (
               <div
-                key={holiday.id}
+                key={holiday.id || index}
                 className="bg-white rounded-lg shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 cursor-pointer mx-2 sm:mx-4 my-2"
                 onClick={() => setSelectedHoliday(holiday)} // Set the holiday for modal
               >
