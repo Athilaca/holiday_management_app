@@ -1,4 +1,5 @@
-// src/api/countries.js
+import { setCache, getCache } from '../utils/cache';
+
 import axios from 'axios';
 
 export const getCountries = async () => {
@@ -15,9 +16,20 @@ export const getCountries = async () => {
 
 
 export const getHolidays = async (country, year) => {
+
+  const cacheKey = `holidays_${country}_${year}`;
+  const cachedHolidays = getCache(cacheKey);
+
+  if (cachedHolidays) {
+      console.log("Returning cached data");
+      return cachedHolidays; // Return from cache
+  }
   try {
     const response = await axios.get(`http://127.0.0.1:8000/api/holidays/?country=${country}&year=${year}`);
-    return response.data.response.holidays; // Return the holiday data
+    const holidays = response.data.response.holidays;
+    setCache(cacheKey, holidays); // Save in cache
+    return holidays;
+    
   } catch (error) {
     console.error("Error fetching holidays:", error);
     return []; // Return an empty array in case of error
