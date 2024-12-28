@@ -16,7 +16,7 @@ Build a full-stack Holiday Management Application that fetches holiday data from
 1. Search and filter holidays by country, year, and holiday name.
 2. Display holiday details in a modal (e.g., name, description, type, and date).
 3. Cache holiday data for a given country and year for 24 hours to avoid repetitive API calls.
-4. Pagination for displaying holidays when the number of holidays exceeds 20.
+4. Pagination for displaying holidays when the number of holidays exceeds 10.
 5. Dropdowns for selecting country and year.
 6. Custom search to filter holidays by name (e.g., “Christmas”).
 7. Date range picker for filtering holidays by date.
