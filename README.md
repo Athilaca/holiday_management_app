@@ -44,18 +44,26 @@ Build a full-stack Holiday Management Application that fetches holiday data from
     pip install -r requirements.txt
     ```
 
-4. Set up environment variables:
+4. Install Redis (if not already installed):
+    ```bash
+    sudo apt update
+    sudo apt install redis-server
+    sudo systemctl start redis-server
+    sudo systemctl enable redis-server
+
+    ```
+5. Set up environment variables:
     Create a `.env` file in the `backend` directory with the following contents:
     ```env
     CALENDARIFIC_API_KEY=<your_calendarific_api_key>
     ```
 
-5. Migrate the database:
+6. Migrate the database:
     ```bash
     python manage.py migrate
     ```
 
-6. Run the Django server:
+7. Run the Django server:
     ```bash
     python manage.py runserver
     ```

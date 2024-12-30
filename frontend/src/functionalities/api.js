@@ -1,4 +1,3 @@
-import { setCache, getCache } from '../utils/cache';
 
 import axios from 'axios';
 
@@ -17,13 +16,6 @@ export const getCountries = async () => {
 
 export const getHolidays = async (country, year) => {
 
-  const cacheKey = `holidays_${country}_${year}`;
-  const cachedHolidays = getCache(cacheKey);
-
-  if (cachedHolidays) {
-      console.log("Returning cached data");
-      return cachedHolidays; // Return from cache
-  }
   try {
     const response = await axios.get(`http://127.0.0.1:8000/api/holidays/?country=${country}&year=${year}`);
     const holidays = response.data.response.holidays;
@@ -31,9 +23,6 @@ export const getHolidays = async (country, year) => {
       console.log("No holidays found");
       return []; 
     }
-    
-
-    setCache(cacheKey, holidays); // Save in cache
     return holidays;
 
   } catch (error) {
