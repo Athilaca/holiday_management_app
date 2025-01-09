@@ -1,6 +1,6 @@
 # Holiday Management Application
 
-![Holiday App](images/holiday_app.png)
+![Holiday App](holiday_app.png)
 
 ## Objective
 Build a full-stack Holiday Management Application that fetches holiday data from the Calendarific API and allows users to search, filter, and display holidays for a selected country and year.
